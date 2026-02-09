@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Special Message For You</title>
+    <style>
+        body { background-color: #fff0f3; font-family: 'Arial', sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; margin: 0; text-align: center; overflow: hidden; }
+        h1 { color: #ff4d6d; font-size: 1.8rem; margin-bottom: 20px; padding: 0 10px; }
+        .btn-container { position: relative; width: 100%; height: 100px; }
+        button { padding: 15px 30px; font-size: 1.2rem; border-radius: 20px; border: none; cursor: pointer; position: absolute; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        #yesBtn { background-color: #ff4d6d; color: white; left: 50%; transform: translateX(-110%); }
+        #noBtn { background-color: #808080; color: white; left: 50%; transform: translateX(10%); transition: 0.1s; }
+        .gift-container { display: flex; gap: 15px; justify-content: center; margin-top: 20px; }
+        .gift-box { font-size: 50px; cursor: pointer; transition: 0.3s; }
+        .gift-box:hover { transform: scale(1.2); }
+        .hidden { display: none; }
+        .result-screen { padding: 25px; border-radius: 25px; background: white; box-shadow: 0 8px 20px rgba(0,0,0,0.15); width: 85%; max-width: 400px; }
+        #resContent { font-size: 1.1rem; line-height: 1.6; color: #444; font-style: italic; }
+    </style>
+</head>
+<body>
+    <div id="page1">
+        <h1>I have something important to ask you... ❤️</h1>
+        <div class="btn-container">
+            <button id="yesBtn" onclick="showGifts()">What is it?</button>
+            <button id="noBtn" onmouseover="moveButton()">Not interested</button>
+        </div>
+    </div>
+
+    <div id="page2" class="hidden">
+        <h1>Choose a gift to unlock my heart 🎁</h1>
+        <div class="gift-container">
+            <div class="gift-box" onclick="reveal('flowers')">🎁</div>
+            <div class="gift-box" onclick="reveal('song')">🎁</div>
+            <div class="gift-box" onclick="reveal('note')">🎁</div>
+        </div>
+    </div>
+
+    <div id="page3" class="hidden">
+        <div class="result-screen">
+            <h2 id="resTitle" style="color:#ff4d6d;"></h2>
+            <div id="resContent"></div>
+            <br>
+            <button style="position:relative; transform:none; left:auto; background:#ff4d6d; color:white;" onclick="backToGifts()">Open another</button>
+        </div>
+    </div>
+
+    <div id="music"></div>
+
+    <script>
+        function moveButton() {
+            const x = Math.random() * (window.innerWidth - 120);
+            const y = Math.random() * (window.innerHeight - 50);
+            const noBtn = document.getElementById('noBtn');
+            noBtn.style.position = 'fixed';
+            noBtn.style.left = x + 'px';
+            noBtn.style.top = y + 'px';
+        }
+
+        function showGifts() {
+            document.getElementById('page1').classList.add('hidden');
+            document.getElementById('page2').classList.remove('hidden');
+            document.getElementById('music').innerHTML = '<iframe width="0" height="0" src="https://www.youtube.com/embed/S2C_mXmS6_s?autoplay=1" frameborder="0" allow="autoplay"></iframe>';
+        }
+
+        function reveal(item) {
+            document.getElementById('page2').classList.add('hidden');
+            document.getElementById('page3').classList.remove('hidden');
+            const title = document.getElementById('resTitle');
+            const content = document.getElementById('resContent');
+
+            if(item === 'flowers') {
+                title.innerText = "A Token Of My Affection";
+                content.innerHTML = "<p style='font-size:60px;'>💐🧁</p><p>Because you're the sweetest person I know.</p>";
+            } else if(item === 'song') {
+                title.innerText = "How I Feel 🎵";
+                content.innerHTML = "<p>This song reminds me of us... <br><b>Billie Eilish - Birds of a Feather</b></p>";
+            } else {
+                title.innerText = "My First Confession ✍️";
+                content.innerHTML = "<p>I’ve spent so much time trying to find the right words to say this to you. Every time I’m with you, my heart feels like it’s found where it belongs. I don't want to just be another person in your life; I want to be the one who stands by you through everything. This is me, taking a chance and telling you for the first time: I am completely in love with you. Will you give me the honor of being yours? ❤️</p>";
+            }
+        }
+
+        function backToGifts() {
+            document.getElementById('page3').classList.add('hidden');
+            document.getElementById('page2').classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
